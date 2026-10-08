@@ -1,0 +1,11 @@
+<%@ include file="header.jspf" %>
+<% boolean registering=pagePath.equals("/register"); %>
+<div class="auth-layout"><section class="auth-intro"><span class="eyebrow">YOUR VOICE. YOUR VILLAGE.</span><h1>A better village<br>starts with you<span class="green">.</span></h1><p>Report local issues, follow the progress, and help your community thrive. All in one place.</p><div class="landscape" aria-hidden="true"><div class="sun"></div><div class="hill h1"></div><div class="hill h2"></div><div class="house">⌂</div><div class="tree">♧</div></div><div class="intro-features"><span>01 &nbsp; Report an issue</span><span>02 &nbsp; Track progress</span><span>03 &nbsp; Make a difference</span></div></section>
+<section class="panel auth-card"><span class="eyebrow">WELCOME TO SMART VILLAGE</span><h2><%=registering?"Join your community":"Good to see you"%></h2><p class="muted"><%=registering?"Create an account to make your voice heard.":"Sign in to manage and track complaints."%></p>
+<form method="post" action="<%=ctx%><%=registering?"/register":"/login"%>" class="form-stack"><input type="hidden" name="csrf" value="<%=Html.e(session.getAttribute("csrf"))%>">
+<% if(registering) { %><label>Full name<input name="name" autocomplete="name" minlength="2" maxlength="100" required value="<%=Html.e(request.getParameter("name"))%>" placeholder="Your full name"></label><% } %>
+<label>Email address<input type="email" name="email" autocomplete="email" maxlength="190" required value="<%=Html.e(request.getParameter("email"))%>" placeholder="you@example.com"></label>
+<label>Password<input type="password" name="password" autocomplete="<%=registering?"new-password":"current-password"%>" minlength="8" maxlength="128" required placeholder="At least 8 characters"></label>
+<button class="button primary full" type="submit"><%=registering?"Create account":"Sign in"%> <span>→</span></button></form>
+<p class="auth-switch"><%=registering?"Already have an account?":"New to your village portal?"%> <a href="<%=ctx%><%=registering?"/login":"/register"%>"><%=registering?"Sign in":"Create an account"%></a></p><p class="fine-print">Panchayat authorities sign in with their administrator account.</p></section></div>
+<%@ include file="footer.jspf" %>
